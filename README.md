@@ -1,6 +1,7 @@
 # noVNC Display Container
-```
-```
+
+> This repo was cloned from [theasp/docker-novnc](https://github.com/theasp/docker-novnc) and modified to support AMD64 and ARM architecture computers
+
 This image is intended to be used for displaying X11 applications from other containers in a browser. A stand-alone demo as well as a [Version 2](https://docs.docker.com/compose/compose-file/#version-2) composition.
 
 ## Image Contents
@@ -17,28 +18,34 @@ This image is intended to be used for displaying X11 applications from other con
 ### Variables
 
 You can specify the following variables:
+
 * `DISPLAY_WIDTH=<width>` (1024)
 * `DISPLAY_HEIGHT=<height>` (768)
 * `RUN_XTERM={yes|no}` (yes)
 * `RUN_FLUXBOX={yes|no}` (yes)
 
 ### Stand-alone Demo
+
 Run:
+
 ```bash
-$ docker run --rm -it -p 8080:8080 theasp/novnc
+docker run --rm -it -p 8080:8080 theasp/novnc
 ```
+
 Open a browser and see the `xterm` demo at `http://<server>:8080/vnc.html`
 
 ### V2 Composition
+
 A version of the [V2 docker-compose example](https://github.com/theasp/docker/blob/master/docker-compose.yml) is shown below to illustrate how this image can be used to greatly simplify the use of X11 applications in other containers. With just `docker-compose up -d`, your favorite IDE can be accessed via a browser.
 
 Some notable features:
+
 * An `x11` network is defined to link the IDE and novnc containers
 * The IDE `DISPLAY` environment variable is set using the novnc container name
 * The screen size is adjustable to suit your preferences via environment variables
 * The only exposed port is for HTTP browser connections
 
-```
+``` bash
 version: '2'
 services:
   ide:
@@ -64,14 +71,19 @@ services:
 networks:
   x11:
 ```
+
 **If the IDE fails to start simply run `docker-compose restart <container-name>`.**
 
 ## On DockerHub / GitHub
+
 ___
+
 * DockerHub [theasp/novnc](https://hub.docker.com/r/theasp/novnc/)
 * GitHub [theasp/docker-novnc](https://github.com/theasp/docker-novnc)
 
-# Thanks
+## Thanks
+
 ___
+
 This is based on the alpine container by @psharkey: https://github.com/psharkey/docker/tree/master/novnc
 Based on [wine-x11-novnc-docker](https://github.com/solarkennedy/wine-x11-novnc-docker) and [octave-x11-novnc-docker](https://hub.docker.com/r/epflsti/octave-x11-novnc-docker/).
